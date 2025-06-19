@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherappdm2.ui.theme.WeatherAppDM2Theme
+import com.weatherappdm.RegisterActivity
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +98,13 @@ fun LoginPage(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(start = 8.dp)
             ) {
                 Text("Limpar")
+            }
+            Button(
+                onClick = {
+                    activity?.startActivity(Intent(activity, RegisterActivity::class.java))
+                }
+            ) {
+                Text("Registrar")
             }
         }
     }
