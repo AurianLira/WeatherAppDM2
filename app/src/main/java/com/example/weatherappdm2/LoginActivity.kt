@@ -1,6 +1,7 @@
 package com.example.weatherappdm2
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -44,7 +45,6 @@ class LoginActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 fun LoginPage(modifier: Modifier = Modifier) {
     var email by rememberSaveable { mutableStateOf("") }
@@ -79,6 +79,11 @@ fun LoginPage(modifier: Modifier = Modifier) {
             Button(
                 onClick = {
                     Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
+                    activity?.startActivity(
+                        Intent(activity, MainActivity::class.java).setFlags(
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        )
+                    )
                 },
                 enabled = email.isNotEmpty() && password.isNotEmpty()
             ) {
@@ -94,5 +99,13 @@ fun LoginPage(modifier: Modifier = Modifier) {
                 Text("Limpar")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoginPagePreview() {
+    WeatherAppDM2Theme {
+        LoginPage()
     }
 }
