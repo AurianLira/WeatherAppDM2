@@ -25,10 +25,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import model.City
+import viewmodel.MainViewModel
 
 @Composable
-fun ListPage(modifier: Modifier = Modifier) {
-    val cityList = remember { getCities().toMutableStateList() }
+fun ListPage(
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel
+) {
+    val cityList = viewModel.cities
     val activity = LocalContext.current as? Activity
 
     LazyColumn(
@@ -41,7 +45,7 @@ fun ListPage(modifier: Modifier = Modifier) {
                 city = city,
                 onClose = {
                     Toast.makeText(activity, "Removendo ${city.name}", Toast.LENGTH_SHORT).show()
-                    cityList.remove(city)
+                    viewModel.remove(city)
                 },
                 onClick = {
                     Toast.makeText(activity, "Clicou em ${city.name}", Toast.LENGTH_SHORT).show()
@@ -50,9 +54,9 @@ fun ListPage(modifier: Modifier = Modifier) {
         }
     }
 }
-private fun getCities() = List(20) { i ->
-    City(name = "Cidade $i", weather = "Carregando clima...")
-}
+//private fun getCities() = List(20) { i ->
+//    City(name = "Cidade $i", weather = "Carregando clima...")
+//}
 
 @Composable
 fun CityItem(
