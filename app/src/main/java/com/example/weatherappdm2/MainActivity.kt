@@ -1,5 +1,6 @@
 package com.example.weatherappdm2
 
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,22 +12,40 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherappdm2.ui.theme.WeatherAppDM2Theme
-import viewmodel.MainViewModel
+import com.example.weatherappdm2.viewmodel.MainViewModel
+
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MainViewModel by viewModels()  // Instancia o ViewModel aqui
+
+    private val viewModel: MainViewModel by viewModels()
+
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            var showDialog by remember { mutableStateOf(false) }
             val navController = rememberNavController()
             WeatherAppDM2Theme {
+                if (showDialog) {
+                    CityDialog(
+                        onDismiss = { showDialog = false },
+                        onConfirm = { city ->
+                            if (city.isNotBlank()) {
+                                viewModel.add(city)
+                            }
+                            showDialog = false
+                        }
+                    )
+                }
+
+
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -50,7 +69,9 @@ class MainActivity : ComponentActivity() {
                         BottomNavBar(navController = navController, items)
                     },
                     floatingActionButton = {
-                        FloatingActionButton(onClick = { /* TODO */ }) {
+                        FloatingActionButton(
+                            onClick = { showDialog = true }
+                        ) {
                             Icon(Icons.Default.Add, contentDescription = "Adicionar")
                         }
                     }

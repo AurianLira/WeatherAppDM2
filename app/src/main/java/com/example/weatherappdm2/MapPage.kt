@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import viewmodel.MainViewModel
+import com.example.weatherappdm2.viewmodel.MainViewModel
 
 @Composable
 fun MapPage(

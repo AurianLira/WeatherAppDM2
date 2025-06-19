@@ -24,8 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import model.City
-import viewmodel.MainViewModel
+import com.example.weatherappdm2.model.City
+import com.example.weatherappdm2.viewmodel.MainViewModel
 
 @Composable
 fun ListPage(
@@ -44,11 +44,11 @@ fun ListPage(
             CityItem(
                 city = city,
                 onClose = {
-                    Toast.makeText(activity, "Removendo ${city.name}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Removendo cidade", Toast.LENGTH_SHORT).show()
                     viewModel.remove(city)
                 },
                 onClick = {
-                    Toast.makeText(activity, "Clicou em ${city.name}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Cidade clicada", Toast.LENGTH_SHORT).show()
                 }
             )
         }

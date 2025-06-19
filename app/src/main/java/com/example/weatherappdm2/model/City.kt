@@ -1,4 +1,4 @@
-package model
+package com.example.weatherappdm2.model
 
 data class City (
     val name : String,

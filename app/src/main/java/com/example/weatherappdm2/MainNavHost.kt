@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import com.example.weatherappdm2.HomePage
 import com.example.weatherappdm2.ListPage
 import com.example.weatherappdm2.MapPage
-import viewmodel.MainViewModel
+import com.example.weatherappdm2.viewmodel.MainViewModel
 
 @Composable
 fun MainNavHost(
