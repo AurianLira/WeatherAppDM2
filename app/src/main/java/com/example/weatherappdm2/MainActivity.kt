@@ -80,12 +80,8 @@ class MainActivity : ComponentActivity() {
                     },
                     floatingActionButton = {
                         if (showButton) {
-                            FloatingActionButton(
-                                onClick = {
-                                    launcher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
-                                }
-                            ) {
-                                Icon(Icons.Default.Add, contentDescription = "Adicionar Localização")
+                            FloatingActionButton(onClick = { showDialog = true }) {
+                                Icon(Icons.Default.Add, contentDescription = "Adicionar")
                             }
                         }
                     }
