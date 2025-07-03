@@ -1,4 +1,4 @@
-package com.weatherappdm
+package com.example.weatherappdm2
 
 import android.app.Activity
 import android.os.Bundle
@@ -17,6 +17,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherappdm2.ui.theme.WeatherAppDM2Theme
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,10 +50,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Registrar Novo Usuário",
-            fontSize = 24.sp
-        )
+        Text(text = "Registrar Novo Usuário", fontSize = 24.sp)
 
         Spacer(modifier = Modifier.size(24.dp))
 
@@ -96,8 +95,23 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         Row {
             Button(
                 onClick = {
-                    Toast.makeText(activity, "Registro OK!", Toast.LENGTH_LONG).show()
-                    activity?.finish()
+                    Firebase.auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(activity!!) { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(
+                                    activity,
+                                    "Registro OK!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                activity.finish()
+                            } else {
+                                Toast.makeText(
+                                    activity,
+                                    "Registro FALHOU!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                 },
                 enabled = name.isNotEmpty() && email.isNotEmpty()
                         && password.isNotEmpty() && password2.isNotEmpty()
