@@ -84,7 +84,6 @@ fun LoginPage(modifier: Modifier = Modifier) {
                                     "Login OK!",
                                     Toast.LENGTH_LONG
                                 ).show()
-                                // Não redireciona para MainActivity aqui
                             } else {
                                 Toast.makeText(
                                     activity,
