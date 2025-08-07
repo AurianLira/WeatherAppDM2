@@ -49,8 +49,8 @@ fun ListPage(
                     viewModel.remove(city)
                 },
                 onClick = {
-                    // ✅ ALTERAÇÃO APLICADA AQUI
                     viewModel.city = city
+                    viewModel.page = Route.Home
                 }
             )
         }

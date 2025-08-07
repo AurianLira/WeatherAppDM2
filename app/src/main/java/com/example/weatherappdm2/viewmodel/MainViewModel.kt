@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.weatherappdm2.Route
 import com.example.weatherappdm2.api.WeatherService
 import com.example.weatherappdm2.api.toForecast
 import com.example.weatherappdm2.api.toWeather
@@ -28,6 +29,10 @@ class MainViewModel (private val db: FBDatabase,
     var city: City?
         get() = _city.value
         set(tmp) { _city.value = tmp?.copy() }
+    private var _page = mutableStateOf<Route>(Route.Home)
+    var page: Route
+        get() = _page.value
+        set(tmp) { _page.value = tmp }
     init {
         db.setListener(this)
     }
