@@ -20,6 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.weatherappdm2.api.WeatherService
 import com.example.weatherappdm2.db.fb.FBDatabase
 import com.example.weatherappdm2.ui.theme.WeatherAppDM2Theme
 import com.example.weatherappdm2.viewmodel.MainViewModel
@@ -37,8 +38,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val fbDB = remember { FBDatabase() }
+            val weatherService = remember { WeatherService() }
             val viewModel : MainViewModel = viewModel(
-                factory = MainViewModelFactory(fbDB)
+                factory = MainViewModelFactory(fbDB, weatherService)
             )
             var showDialog by remember { mutableStateOf(false) }
             val navController = rememberNavController()
