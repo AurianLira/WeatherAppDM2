@@ -82,4 +82,5 @@ class FBDatabase {
         db.collection("users").document(uid).collection("cities")
             .document(city.name!!).delete()
     }
+
 }
