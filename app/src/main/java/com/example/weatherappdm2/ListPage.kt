@@ -8,7 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -82,11 +83,25 @@ fun CityItem(
         )
         Spacer(modifier = Modifier.size(12.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text(
-                modifier = Modifier,
-                text = city.name,
-                fontSize = 24.sp
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = city.name,
+                    fontSize = 24.sp
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+
+                val icon = if (city.isMonitored) {
+                    Icons.Filled.Notifications
+                } else {
+                    Icons.Outlined.Notifications
+                }
+
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "Status de Monitoramento",
+                    modifier = Modifier.size(20.dp)
+                )
+            }
             Text(
                 modifier = Modifier,
                 text = city.weather?.desc ?: "carregando...",
