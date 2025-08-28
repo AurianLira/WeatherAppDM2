@@ -24,7 +24,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherappdm2.api.WeatherService
 import com.example.weatherappdm2.db.fb.FBDatabase
+import com.example.weatherappdm2.db.local.LocalDatabase
 import com.example.weatherappdm2.monitor.ForecastMonitor
+import com.example.weatherappdm2.repo.Repository
 import com.example.weatherappdm2.ui.theme.WeatherAppDM2Theme
 import com.example.weatherappdm2.viewmodel.MainViewModel
 import com.example.weatherappdm2.viewmodel.MainViewModelFactory
@@ -42,8 +44,17 @@ class MainActivity : ComponentActivity() {
             val weatherService = remember { WeatherService() }
             val monitor = remember { ForecastMonitor(this) }
 
+            val uid = Firebase.auth.currentUser?.uid
+            val localDB = remember(uid) {
+                LocalDatabase(this, uid ?: "local_cities_db")
+            }
+            val repository = remember(uid) {
+                Repository(fbDB, localDB)
+            }
+
             val viewModel: MainViewModel = viewModel(
-                factory = MainViewModelFactory(fbDB, weatherService, monitor)
+                key = uid,
+                factory = MainViewModelFactory(repository, weatherService, monitor)
             )
 
             DisposableEffect(Unit) {
